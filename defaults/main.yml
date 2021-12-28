@@ -2,6 +2,11 @@
 APP_NAME: sqlite
 APP_DEPENDENCIES:
   - git
+  - gcc
+  - make
+  - readline-devel
+  - tcl
+  - zlib-devel
 APP_PREFIX: "{{ lookup('env', 'HOME') }}/.local"
 APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME  }}"
 APP_REPO: git@github.com:sqlite/sqlite.git
