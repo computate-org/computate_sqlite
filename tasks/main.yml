@@ -19,14 +19,14 @@
   when: not APP_README_PATH.stat.exists
 - name: "Run the configure script in {{ APP_SRC }}"
   shell:
-    cmd: "./configure --prefix {{ APP_PREFIX }}"
+    cmd: "export TCLLIBDIR={{ APP_PREFIX }}/share/tcl8.6/sqlite3 && ./configure --prefix {{ APP_PREFIX }}"
     chdir: "{{ APP_SRC }}"
 - name: "Run the make script in {{ APP_SRC }}"
   shell:
-    cmd: make
+    cmd: "make"
     chdir: "{{ APP_SRC }}"
 - name: "Run the make install script in {{ APP_SRC }}"
   shell:
-    cmd: make install
+    cmd: "make install"
     chdir: "{{ APP_SRC }}"
 
