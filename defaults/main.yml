@@ -12,4 +12,5 @@ APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME  }}"
 APP_REPO: git@github.com:sqlite/sqlite.git
 APP_TAG: version-3.37.0
 APP_README: "{{ APP_SRC }}/README.md"
+MAKE_CORES: "{{ ansible_processor_vcpus | default(1) }}"
 
