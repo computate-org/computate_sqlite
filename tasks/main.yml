@@ -11,12 +11,20 @@
   stat:
     path: "{{ APP_README }}"
   register: APP_README_PATH
-- name: "Clone the {{ APP_REPO }} source code into {{ APP_SRC }}"
-  git:
-    repo: "{{ APP_REPO }}"
+- name: "Clone the {{ APP_REPO_SSH }} source code into {{ APP_SRC }}"
+  ansible.builtin.git:
+    repo: "{{ APP_REPO_SSH }}"
     dest: "{{ APP_SRC }}"
     version: "{{ APP_TAG }}"
+  ignore_errors: true
   when: not APP_README_PATH.stat.exists
+  register: CLONE_REPO
+- name: "Clone the {{ APP_REPO_HTTPS }} source code into {{ APP_SRC }}"
+  ansible.builtin.git:
+    repo: "{{ APP_REPO_HTTPS }}"
+    dest: "{{ APP_SRC }}"
+    version: "{{ APP_TAG }}"
+  when: not APP_README_PATH.stat.exists and CLONE_REPO.failed
 - name: "Run the configure script in {{ APP_SRC }}"
   shell:
     cmd: "env TCLLIBDIR={{ APP_PREFIX }}/share/tcl8.6/sqlite3 CFLAGS='-DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_ENABLE_RTREE=1'  ./configure --prefix {{ APP_PREFIX }}"

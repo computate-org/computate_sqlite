@@ -9,7 +9,8 @@ APP_DEPENDENCIES:
   - zlib-devel
 APP_PREFIX: "{{ lookup('env', 'HOME') }}/.local"
 APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME  }}"
-APP_REPO: git@github.com:sqlite/sqlite.git
+APP_REPO_SSH: git@github.com:sqlite/sqlite.git
+APP_REPO_HTTPS: "{{ APP_REPO_SSH | replace('git@github.com:', 'https://github.com/') }}"
 APP_TAG: version-3.37.0
 APP_README: "{{ APP_SRC }}/README.md"
 MAKE_CORES: "{{ ansible_processor_vcpus | default(1) }}"
