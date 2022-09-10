@@ -14,4 +14,4 @@ APP_REPO_HTTPS: "{{ APP_REPO_SSH | replace('git@github.com:', 'https://github.co
 APP_TAG: version-3.37.0
 APP_README: "{{ APP_SRC }}/README.md"
 MAKE_CORES: "{{ ansible_processor_vcpus | default(1) }}"
-
+PKG_INSTALLER: yum
